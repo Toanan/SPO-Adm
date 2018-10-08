@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SPOtLight;
+using Microsoft.SharePoint.Client;
 
 namespace SPOtLight
 {
@@ -28,15 +29,21 @@ namespace SPOtLight
 
         private void StorePW(object sender, RoutedEventArgs e)
         {
+            var repo = new PasswordRepository();
+            var tryConnect = new SPOtLightMenu();
+
             if (!string.IsNullOrEmpty(TBUN.Text))
-            {
-                var repo = new PasswordRepository();
+            {  
                 repo.SaveCred(PBPW.SecurePassword, TBUN.Text);
+                this.Hide();
+                
+            }
+            CredentialManagement.Credential cred = repo.GetCred();
+            if (cred.Exists())
+            {
                 this.Hide();
                 new SPOtLightMenu().Show();
             }
-        this.Hide();
-        new SPOtLightMenu().Show();
         }
     }
 
@@ -63,7 +70,7 @@ namespace SPOtLight
             cred.Target = PasswordName;
             if (!cred.Exists())
             {
-                MessageBox.Show("Les cred {0} n'existent pas", PasswordName);
+                MessageBox.Show(string.Format("Unable to find credential : {0}, please set up credentials", PasswordName));
             }
             cred.Load();
             return cred;
