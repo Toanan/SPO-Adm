@@ -12,12 +12,12 @@ namespace SPOtLight
     class SPOLogic
     {
         // Method - Returns authenticated context
-        public ClientContext GetContext(string site)
+        public PnPClientContext GetContext(string site)
         {
-
             // Creating ClientContext and passing Credentials from CredentialManagement
-            ClientContext ctx = new ClientContext(site);
+            PnPClientContext ctx = new PnPClientContext(site);
             ctx.Credentials = CredentialManager.GetSharePointOnlineCredential("SPOtLight");
+
             return ctx;
         }// End Method
     }
