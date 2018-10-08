@@ -36,28 +36,28 @@ namespace SPOtLight
             {
                 // Calling to Web.Title, Lists and Admins
                 ctx.Load(ctx.Web, w => w.Title, w => w.Lists, w => w.AssociatedOwnerGroup.Users);
-                ctx.ExecuteQuery();
+                ctx.ExecuteQueryRetry();
 
                 // Showing results to TBOut - Title
-                TBOut.Text = ctx.Web.Title + Environment.NewLine;
-
-                // Showing results to TBOut - Lists Count
-                TBOut.Text += ctx.Web.Lists.Count().ToString();
-
-                // Showing results to TBOut - List Title
-                foreach (var list in ctx.Web.Lists)
-                {
-                    TBOut.Text += list.Title + Environment.NewLine;
-                }
+                TBOut.Text = "Nom du site : " + ctx.Web.Title + Environment.NewLine;
 
                 // Showing results to TBOut - Admins Count
                 var admin = ctx.Web.AssociatedOwnerGroup.Users;
-                TBOut.Text += string.Format("Nombre d'adm : {0}", admin.Count());
+                TBOut.Text += string.Format("Nombre d'adm : {0}", admin.Count() + Environment.NewLine);
 
                 // Showing results to TBOut - Admin Title
                 foreach (var adm in admin)
                 {
                     TBOut.Text += adm.Title + Environment.NewLine;
+                }
+
+                // Showing results to TBOut - Lists Count
+                TBOut.Text += "Nombre de liste : " + ctx.Web.Lists.Count().ToString() + Environment.NewLine;
+
+                // Showing results to TBOut - List Title
+                foreach (var list in ctx.Web.Lists)
+                {
+                    TBOut.Text += list.Title + Environment.NewLine;
                 }
             }
         }// End Method
