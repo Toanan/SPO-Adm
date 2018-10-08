@@ -27,12 +27,15 @@ namespace SPOtLight
             InitializeComponent();
         }
 
+
+        
+
         // Method - Btn.Click - Connect to SPO Site and retrive Basics Information
         private void ConnectSPO(object sender, RoutedEventArgs e)
         {
-
+            var spoL = new SPOLogic();
             //Using ClientContext - Retrive Basic Informaiton
-            using (ClientContext ctx = GetContext(TBSite.Text))
+            using (ClientContext ctx = spoL.GetContext(TBSite.Text))
             {
                 // Calling to Web.Title, Lists and Admins
                 ctx.Load(ctx.Web, w => w.Title, w => w.Lists, w => w.AssociatedOwnerGroup.Users);
@@ -62,20 +65,13 @@ namespace SPOtLight
             }
         }// End Method
 
-        // Method - Returns authenticated context
-        public ClientContext GetContext(string site)
-        {
-            
-            // Creating ClientContext and passing Credentials from CredentialManagement
-            ClientContext ctx = new ClientContext(site);
-            ctx.Credentials = CredentialManager.GetSharePointOnlineCredential("SPOtLight");
-            return ctx;       
-        }// End Method
+
 
         // Method - BTN.Click - Create List
         private void CreateList(object sender, RoutedEventArgs e)
         {
-            using (ClientContext ctx = GetContext(TBSite.Text))
+            var spoL = new SPOLogic();
+            using (ClientContext ctx = spoL.GetContext(TBSite.Text))
             {
                 ctx.Web.CreateList(ListTemplateType.DocumentLibrary, TBList.Text, false);
             }

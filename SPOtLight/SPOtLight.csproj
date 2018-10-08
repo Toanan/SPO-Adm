@@ -192,6 +192,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="PasswordRepository.cs" />
+    <Compile Include="SPOLogic.cs" />
     <Compile Include="SPOtLightMenu.xaml.cs">
       <DependentUpon>SPOtLightMenu.xaml</DependentUpon>
     </Compile>
