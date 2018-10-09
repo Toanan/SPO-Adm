@@ -14,7 +14,5 @@ namespace SPOtLight
 
             return ctx;
         }// End Method
-
-        public 
     }
 }

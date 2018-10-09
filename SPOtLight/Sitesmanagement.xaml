@@ -1,0 +1,13 @@
+﻿<Window x:Class="SPOtLight.Sitesmanagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SPOtLight"
+        mc:Ignorable="d"
+        Title="Sitesmanagement" Height="450" Width="800">
+    <Grid Margin="0,0,-0.4,6">
+        <TextBox Name="TBOut" Margin="332,91,10,0" />
+        <Button Name="BtnConnect" Content="Connect" Margin="56,174,553,179" Click="ConnectSPOAdm"/>
+    </Grid>
+</Window>

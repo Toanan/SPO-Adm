@@ -27,7 +27,7 @@ namespace SPOtLight
             if (cred.Exists())
             {
                 this.Hide();
-                new SPOtLightMenu().Show();
+                new Sitesmanagement().Show();
             }
         }
     }

@@ -192,6 +192,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="PasswordRepository.cs" />
+    <Compile Include="Sitesmanagement.xaml.cs">
+      <DependentUpon>Sitesmanagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SPOLogic.cs" />
     <Compile Include="SPOtLightMenu.xaml.cs">
       <DependentUpon>SPOtLightMenu.xaml</DependentUpon>
@@ -208,6 +211,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Sitesmanagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SPOtLightMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

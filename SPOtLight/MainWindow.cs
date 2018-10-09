@@ -36,13 +36,12 @@ namespace SPOtLight
             {  
                 repo.SaveCred(PBPW.SecurePassword, TBUN.Text);
                 this.Hide();
-                
             }
             CredentialManagement.Credential cred = repo.GetCred();
             if (cred.Exists())
             {
                 this.Hide();
-                new SPOtLightMenu().Show();
+                new Sitesmanagement().Show();
             }
         }
     }
