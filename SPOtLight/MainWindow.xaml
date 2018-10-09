@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPOtLight"
         mc:Ignorable="d"
-        Title="MainWindow" Height="319.003" Width="376.685">
+        Title="MainWindow" Height="258.481" Width="376.685" WindowStartupLocation="CenterScreen">
+    
     <Grid>
-        <Label Name="Intro" Background="DarkCyan" Content="            You can set your credentials here. &#x0a;Leave User name empty for managed credentials." Margin="0,0,0.4,244.6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"  Width="370" VerticalAlignment="Center" Height="45"/>
-        <Label Name="LUser" Content="User name" Margin="38,96,263.4,160.6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Name="LPassword" Content="Password" Margin="38,140,263.4,116.6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox Name="TBUN" HorizontalAlignment="Left" Height="23" Margin="118,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="208"/>
-        <PasswordBox Name="PBPW" HorizontalAlignment="Left" Margin="118,146,0,0" VerticalAlignment="Top" Width="208" Height="23"/>
-        <Button Name="BTNCRED" Content="Connect" HorizontalAlignment="Left" Margin="157,184,0,0" VerticalAlignment="Top" Width="75" Click="StorePW"/>
-
+        <Label Name="Intro" Background="DarkCyan" Content="            You can set your credentials here. &#x0a;Leave User name empty for managed credentials." Margin="0,0,0.4,183.8" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"  Width="370" VerticalAlignment="Center" Height="45"/>
+        <Label Name="LUser" Content="User name" Margin="10,78,266.4,123.8" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Name="LPassword" Content="Password" Margin="18,122,278.4,75.8" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox Name="TBUN" HorizontalAlignment="Left" Height="23" Margin="115,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="208"/>
+        <PasswordBox Name="PBPW" HorizontalAlignment="Left" Margin="115,126,0,0" VerticalAlignment="Top" Width="208" Height="23"/>
+        <Button Name="BTNCRED" Content="Connect"  HorizontalAlignment="Left" Margin="136,174,0,0" VerticalAlignment="Top" Width="88" Click="StorePW" Height="35"/>
     </Grid>
 </Window>

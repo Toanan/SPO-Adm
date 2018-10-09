@@ -31,7 +31,7 @@ namespace SPOtLight
         {
             //Using ClientContext - Retrive Basic Informaiton
             var spoL = new SPOLogic();
-            using (PnPClientContext ctx = spoL.GetContext(TBSite.Text))
+            using (PnPClientContext ctx = spoL.GetSiteContext(TBSite.Text))
             {
                 // Calling to Web.Title, Lists and Admins
                 ctx.Load(ctx.Web, w => w.Title, w => w.Lists, w => w.AssociatedOwnerGroup.Users);
@@ -66,7 +66,7 @@ namespace SPOtLight
         {
             //Using ClientContext - Retrive Basic Informaiton
             var spoL = new SPOLogic();
-            using (PnPClientContext ctx = spoL.GetContext(TBSite.Text))
+            using (PnPClientContext ctx = spoL.GetSiteContext(TBSite.Text))
             {
                 try
                 {

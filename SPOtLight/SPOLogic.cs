@@ -12,7 +12,7 @@ namespace SPOtLight
     class SPOLogic
     {
         // Method - Returns authenticated context
-        public PnPClientContext GetContext(string site)
+        public PnPClientContext GetSiteContext(string site)
         {
             // Creating ClientContext and passing Credentials from CredentialManagement
             PnPClientContext ctx = new PnPClientContext(site);
@@ -20,5 +20,7 @@ namespace SPOtLight
 
             return ctx;
         }// End Method
+
+        public 
     }
 }
