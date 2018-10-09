@@ -8,6 +8,7 @@
         Title="Sitesmanagement" Height="450" Width="800">
     <Grid Margin="0,0,-0.4,6">
         <TextBox Name="TBOut" Margin="332,91,10,0" />
-        <Button Name="BtnConnect" Content="Connect" Margin="56,174,553,179" Click="ConnectSPOAdm"/>
+        <Button Name="BtnConnect" Content="Connect" Margin="10,10,599.4,343" Click="ConnectSPOAdm"/>
+        <ListBox Name="LBSites" HorizontalAlignment="Left" Height="312" Margin="33,91,0,0" VerticalAlignment="Top" Width="226" SelectionChanged="LBSitesChanged"/>
     </Grid>
 </Window>

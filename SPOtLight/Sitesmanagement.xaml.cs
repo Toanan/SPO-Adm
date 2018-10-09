@@ -49,14 +49,19 @@ namespace SPOtLight
                     context.ExecuteQuery();
 
                     var site = string.Format("{0} Url: {1}", web.Title, web.Url);
-                    TBOut.Text += site + Environment.NewLine;
+
+                    LBSites.Items.Add(web.Url);
+
+
+                    //site + Environment.NewLine;
 
                     int admincount = web.SiteUsers.Where(u => u.IsSiteAdmin).Count();
                     if (admincount < 2)
                     {
-                        TBOut.Text += string.Format("Le site n'est pas en compliance : {0} admin", admincount) + Environment.NewLine;
+                        TBOut.Text += string.Format("Warning : {0} admin", admincount) + Environment.NewLine;
                     }
                     var admins = string.Join(";",web.SiteUsers.Where(u => u.IsSiteAdmin).Select(a => a.Title).ToList());
+
 
                     TBOut.Text += sp.Title + " => " + sp.Url + Environment.NewLine;
                     TBOut.Text += "Administrators  => " + admins + Environment.NewLine;
@@ -96,5 +101,10 @@ namespace SPOtLight
                 }
             }
         }// End Method
+
+        private void LBSitesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TBOut.Text = "Changed !";
+        }
     }
 }
