@@ -10,6 +10,7 @@ namespace SPOtLight
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void StorePW(object sender, RoutedEventArgs e)
@@ -27,7 +28,7 @@ namespace SPOtLight
             if (cred.Exists())
             {
                 this.Hide();
-                new Sitesmanagement().Show();
+                new Sitesmanagement(TBAdminSite.Text).Show();
             }
         }
     }

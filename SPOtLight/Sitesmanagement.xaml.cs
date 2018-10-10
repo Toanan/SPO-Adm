@@ -23,25 +23,28 @@ namespace SPOtLight
     /// </summary>
     public partial class Sitesmanagement : Window
     {
-        public Sitesmanagement()
-        {
+        //Constructor
+        public Sitesmanagement(string Url)
+        { 
             InitializeComponent();
-        }
+            string AdmUrl = Url;
+            ConnectSPOAdm(AdmUrl);
+        }// End Constructor
 
-        string mainpath = "https://toanan-admin.sharepoint.com";
-
-        // Method - Btn.Click - Connect to SPO Site and retrive Basics Information
-        private void ConnectSPOAdm(object sender, RoutedEventArgs e)
+        // Method - OnWindowInitialise() - Connect to SPO Site and retrive Basics Information // Copy from BtnConnect.click()
+        private void ConnectSPOAdm(string Url)
         {
             //Using ClientContext - Retrive Basic Informaiton
             var spoL = new SPOLogic();
-            using (PnPClientContext ctx = spoL.GetSiteContext(mainpath))
+            using (PnPClientContext ctx = spoL.GetSiteContext(Url))
             {
+                // Retrieving Tenant props
                 Tenant tenant = new Tenant(ctx);
                 var prop = tenant.GetSiteProperties(0, true);
                 ctx.Load(prop);
                 ctx.ExecuteQuery();
 
+                // Iterating SubWebs to retrieve web.Url
                 foreach (SiteProperties sp in prop)
                 {
                     PnPClientContext context = new PnPClientContext(sp.Url);
@@ -50,24 +53,36 @@ namespace SPOtLight
                     context.Load(web, w => w.Url);
                     context.ExecuteQuery();
 
+                    // Pushing Web.Url to LBSites
                     LBSites.Items.Add(web.Url);
                 }
             }
         }// End Method
 
+        // Method LBSites.OnChange() ==> Call for Site props (getSiteProps())
+        private void LBSitesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            getSiteProps(LBSites.SelectedValue.ToString());
+        }// End Method
+
+        // Method to Call for SharePoint Site Title and SiteUsers 
         private void getSiteProps(string Url)
-        {  
+        {
             var spoL = new SPOLogic();
+            // Threading the call
             Task.Run(() =>
             {
                 using (PnPClientContext ctx = spoL.GetSiteContext(Url))
                 {
+                    //Retrieving Web.Title and Web.SiteUsers
                     var web = ctx.Web;
-                    ctx.Load(web, w => w.SiteUsers, w => w.Title, w => w.Url);
+                    ctx.Load(web, w => w.SiteUsers, w => w.Title);
                     ctx.ExecuteQuery();
 
+                    // Threading push to TBOut.Text
                     TBOut.Dispatcher.Invoke(() =>
                     {
+                        // Pushing SiteName, Admin count and Admin.Title to TBOut
                         TBOut.Text = "SiteName : " + ctx.Web.Title + Environment.NewLine;
                         TBOut.Text += "Admin count : " + ctx.Web.SiteUsers.Where(u => u.IsSiteAdmin).Count() + Environment.NewLine;
 
@@ -76,37 +91,9 @@ namespace SPOtLight
                         {
                             TBOut.Text += admin.Title + Environment.NewLine;
                         }
-                    });
+                    });// End Threading push to TBOut
                 }
-            }); 
-        }
-
-        private void getSubWebs(string path)
-        {
-                string mainpath = "https://toanan-admin.sharepoint.com/";
-                //Using ClientContext - Retrive Basic Informaiton
-                var spoL = new SPOLogic();
-            using (PnPClientContext ctx = spoL.GetSiteContext(mainpath))
-            {
-
-                Tenant tenant = new Tenant(ctx);
-                var prop = tenant.GetSiteProperties(0, true);
-                ctx.Load(prop);
-                ctx.ExecuteQuery();
-                foreach (SiteProperties sp in prop)
-                {
-                    PnPClientContext context = new PnPClientContext(sp.Url);
-                    context.Credentials = sp.Context.Credentials;
-                    var web = context.Web;
-                    context.Load(web, w => w.SiteUsers);
-                    context.ExecuteQuery();
-                }
-            }
+            }); // End Task
         }// End Method
-
-        private void LBSitesChanged(object sender, SelectionChangedEventArgs e)
-        {
-            getSiteProps(LBSites.SelectedValue.ToString());
-        }
     }
 }
