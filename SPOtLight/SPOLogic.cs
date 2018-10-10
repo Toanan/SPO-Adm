@@ -1,15 +1,16 @@
 ﻿using OfficeDevPnP.Core.Utilities;
 using OfficeDevPnP.Core;
+using Microsoft.SharePoint.Client;
 
 namespace SPOtLight
 {
     class SPOLogic
     {
         // Method - Returns authenticated context
-        public PnPClientContext GetSiteContext(string site)
+        public ClientContext GetSiteContext(string site)
         {
             // Creating ClientContext and passing Credentials from CredentialManagement
-            PnPClientContext ctx = new PnPClientContext(site);
+            ClientContext ctx = new ClientContext(site);
             ctx.Credentials = CredentialManager.GetSharePointOnlineCredential("SPOtLight");
 
             return ctx;

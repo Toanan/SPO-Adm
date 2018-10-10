@@ -12,9 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Online.SharePoint.TenantAdministration;
-using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core;
-using System.Threading;
+using Microsoft.SharePoint.Client;
 
 namespace SPOtLight
 {
@@ -36,11 +35,11 @@ namespace SPOtLight
         {
             //Using ClientContext - Retrive Basic Informaiton
             var spoL = new SPOLogic();
-            using (PnPClientContext ctx = spoL.GetSiteContext(Url))
+            using (ClientContext ctx = spoL.GetSiteContext(Url))
             {
                 // Retrieving Tenant props
                 Tenant tenant = new Tenant(ctx);
-                var prop = tenant.GetSiteProperties(0, true);
+                var prop = tenant.GetSitePropertiesFromSharePoint("0", true);
                 ctx.Load(prop);
                 ctx.ExecuteQuery();
 
@@ -72,7 +71,7 @@ namespace SPOtLight
             // Threading the call
             Task.Run(() =>
             {
-                using (PnPClientContext ctx = spoL.GetSiteContext(Url))
+                using (ClientContext ctx = spoL.GetSiteContext(Url))
                 {
                     //Retrieving Web.Title and Web.SiteUsers
                     var web = ctx.Web;

@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="SPOtLight &gt; SitesManagement" Height="450" Width="800">
     <Grid Margin="0,0,-0.4,6">
-        <TextBox Name="TBOut" Margin="332,91,10,0" />
-        <ListBox Name="LBSites" HorizontalAlignment="Left" Height="312" Margin="33,91,0,0" VerticalAlignment="Top" Width="226" SelectionChanged="LBSitesChanged"/>
+        <Button Name="BtnAddSite" Content="+" Margin="292,21,471,364" />
+        <Button Name="BtnDelSite" Content="-" Margin="260,21,503,364" />
+        <Label Name="Sites" Content="SharePoint Sites" Margin="119,21,571,359" />
+        <Label Name="Props" Content="SharePoint Site Properties" Margin="490,21,150,359" />
+        <TextBox Name="TBOut" Margin="332,55,10,181" />
+        <ListBox Name="LBSites" HorizontalAlignment="Left" Height="348" Margin="33,55,0,0" VerticalAlignment="Top" Width="294" SelectionChanged="LBSitesChanged"/>
     </Grid>
 </Window>
