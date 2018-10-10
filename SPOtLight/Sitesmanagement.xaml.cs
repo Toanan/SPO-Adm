@@ -23,6 +23,7 @@ namespace SPOtLight
     /// </summary>
     public partial class Sitesmanagement : Window
     {
+
         //Constructor
         public Sitesmanagement(string Url)
         { 
@@ -72,7 +73,7 @@ namespace SPOtLight
         // Method LBSites.OnChange() ==> Call for Site props (getSiteProps())
         private void LBSitesChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            //Reloading UI and [TODO] canceling pending operation to prevent spam
             getSiteProps(LBSites.SelectedValue.ToString());
             getSiteLists(LBSites.SelectedValue.ToString());
         }// End Method
@@ -92,7 +93,7 @@ namespace SPOtLight
                     ctx.Load(web, w => w.SiteUsers, w => w.Title, w => w.WebTemplate, w => w.Configuration);
                     ctx.ExecuteQuery();
 
-                    // Threading push to TBOut.Text
+                    // Dispatch to TBOut control
                     TBOut.Dispatcher.Invoke(() =>
                     {
                         // Pushing SiteName, Admin count and Admin.Title to TBOut
@@ -105,10 +106,10 @@ namespace SPOtLight
                         {
                             TBOut.Text += admin.Title + Environment.NewLine;
                         }
-                    });// End Threading push to TBOut
+                    });// End Disptach to TBOut control
                 }
             }); // End Task
-            
+
         }// End Method
 
         // Method to Call for SharePoint Site Lists - onInitialise Window
@@ -138,23 +139,8 @@ namespace SPOtLight
                             LBLists.Items.Add(lst.Title + " - " + lst.ItemCount + " ListItem");
                         }
                     });
-
-                    /*
-                    //Retrieving Web.Title and Web.SiteUsers
-                    var web = ctx.Web;
-                    ctx.Load(web, w => w.Lists);
-                    ctx.ExecuteQuery();
-
-                    // Threading push to TBOut.Text
-                    TBOut.Dispatcher.Invoke(() =>
-                    {
-                        foreach ( var list in ctx.Web.Lists )
-                        {
-                        LBLists.Items.Add(list.Title + " - " + list.ItemCount + " ListItem" );
-                        }
-                    });// End Threading push to LBLists*/
                 }
             }); // End Task
-                }// End Method
-            }
+        }// End Method
+    }
 }
