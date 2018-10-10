@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core;
+using System.Threading;
 
 namespace SPOtLight
 {
@@ -27,7 +28,7 @@ namespace SPOtLight
             InitializeComponent();
         }
 
-        string mainpath = "https://toanan-admin.sharepoint.com/";
+        string mainpath = "https://toanan-admin.sharepoint.com";
 
         // Method - Btn.Click - Connect to SPO Site and retrive Basics Information
         private void ConnectSPOAdm(object sender, RoutedEventArgs e)
@@ -40,36 +41,45 @@ namespace SPOtLight
                 var prop = tenant.GetSiteProperties(0, true);
                 ctx.Load(prop);
                 ctx.ExecuteQuery();
+
                 foreach (SiteProperties sp in prop)
                 {
                     PnPClientContext context = new PnPClientContext(sp.Url);
                     context.Credentials = sp.Context.Credentials;
                     var web = context.Web;
-                    context.Load(web, w => w.SiteUsers, w => w.Title, w => w.Url);
+                    context.Load(web, w => w.Url);
                     context.ExecuteQuery();
 
-                    var site = string.Format("{0} Url: {1}", web.Title, web.Url);
-
                     LBSites.Items.Add(web.Url);
-
-
-                    //site + Environment.NewLine;
-
-                    int admincount = web.SiteUsers.Where(u => u.IsSiteAdmin).Count();
-                    if (admincount < 2)
-                    {
-                        TBOut.Text += string.Format("Warning : {0} admin", admincount) + Environment.NewLine;
-                    }
-                    var admins = string.Join(";",web.SiteUsers.Where(u => u.IsSiteAdmin).Select(a => a.Title).ToList());
-
-
-                    TBOut.Text += sp.Title + " => " + sp.Url + Environment.NewLine;
-                    TBOut.Text += "Administrators  => " + admins + Environment.NewLine;
-                    TBOut.Text += "---------------------------" + Environment.NewLine;
                 }
             }
         }// End Method
 
+        private void getSiteProps(string Url)
+        {  
+            var spoL = new SPOLogic();
+            Task.Run(() =>
+            {
+                using (PnPClientContext ctx = spoL.GetSiteContext(Url))
+                {
+                    var web = ctx.Web;
+                    ctx.Load(web, w => w.SiteUsers, w => w.Title, w => w.Url);
+                    ctx.ExecuteQuery();
+
+                    TBOut.Dispatcher.Invoke(() =>
+                    {
+                        TBOut.Text = "SiteName : " + ctx.Web.Title + Environment.NewLine;
+                        TBOut.Text += "Admin count : " + ctx.Web.SiteUsers.Where(u => u.IsSiteAdmin).Count() + Environment.NewLine;
+
+                        var admins = ctx.Web.SiteUsers.Where(u => u.IsSiteAdmin);
+                        foreach (var admin in admins)
+                        {
+                            TBOut.Text += admin.Title + Environment.NewLine;
+                        }
+                    });
+                }
+            }); 
+        }
 
         private void getSubWebs(string path)
         {
@@ -90,21 +100,13 @@ namespace SPOtLight
                     var web = context.Web;
                     context.Load(web, w => w.SiteUsers);
                     context.ExecuteQuery();
-
-                    var admins = string.Join(";", web.SiteUsers.Where(u => u.IsSiteAdmin).Select(a => a.Title).ToList());
-                    var users = string.Join(";", web.SiteUsers.Where(u => !u.IsSiteAdmin).Select(a => a.Title).ToList());
-
-                    TBOut.Text += sp.Title + " => " + sp.Url;
-                    TBOut.Text += "Administrators  => " + admins;
-                    TBOut.Text += "Users  =>  " + users;
-                    TBOut.Text += "---------------------------";
                 }
             }
         }// End Method
 
         private void LBSitesChanged(object sender, SelectionChangedEventArgs e)
         {
-            TBOut.Text = "Changed !";
+            getSiteProps(LBSites.SelectedValue.ToString());
         }
     }
 }
