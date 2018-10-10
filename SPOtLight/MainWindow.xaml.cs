@@ -19,11 +19,11 @@ namespace SPOtLight
 
             if (!string.IsNullOrEmpty(TBUN.Text))
             {  
-                repo.SaveCred(PBPW.SecurePassword, TBUN.Text);
+                repo.SaveCred(PBPW.SecurePassword, TBUN.Text, TBAdminSite.Text);
                 this.Hide();
                 
             }
-            CredentialManagement.Credential cred = repo.GetCred();
+            CredentialManagement.Credential cred = repo.GetCred(TBAdminSite.Text);
             if (cred.Exists())
             {
                 this.Hide();

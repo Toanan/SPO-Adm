@@ -4,28 +4,27 @@ namespace SPOtLight
 {
     public class PasswordRepository
     {
-        private const string PasswordName = "SPOtLight";
 
-        public void SaveCred(System.Security.SecureString password, string userName)
+        public void SaveCred(System.Security.SecureString password, string userName, string AdmUrl)
         {
             using (var cred = new CredentialManagement.Credential())
             {
                 cred.SecurePassword = password;
                 cred.Username = userName;
-                cred.Target = PasswordName;
+                cred.Target = AdmUrl;
                 cred.Type = CredentialManagement.CredentialType.Generic;
                 cred.PersistanceType = CredentialManagement.PersistanceType.LocalComputer;
                 cred.Save();
             }
         }
 
-        public CredentialManagement.Credential GetCred()
+        public CredentialManagement.Credential GetCred(string AdmUrl)
         {
             var cred = new CredentialManagement.Credential();
-            cred.Target = PasswordName;
+            cred.Target = AdmUrl;
             if (!cred.Exists())
             {
-                MessageBox.Show(string.Format("Unable to find credential : {0}, please set up credentials", PasswordName));
+                MessageBox.Show(string.Format("Unable to find credential : {0}, please set up credentials", AdmUrl));
             }
             cred.Load();
             return cred;
