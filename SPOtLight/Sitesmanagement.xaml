@@ -5,13 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPOtLight"
         mc:Ignorable="d"
-        Title="SPOtLight &gt; SitesManagement" Height="450" Width="800">
+        Title="SPOtLight &gt; SitesManagement" Height="800" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,-0.4,6">
-        <Button Name="BtnAddSite" Content="+" Margin="292,21,471,364" />
-        <Button Name="BtnDelSite" Content="-" Margin="260,21,503,364" />
-        <Label Name="Sites" Content="SharePoint Sites" Margin="119,21,571,359" />
-        <Label Name="Props" Content="SharePoint Site Properties" Margin="490,21,150,359" />
-        <TextBox Name="TBOut" Margin="332,55,10,181" />
-        <ListBox Name="LBSites" HorizontalAlignment="Left" Height="348" Margin="33,55,0,0" VerticalAlignment="Top" Width="294" SelectionChanged="LBSitesChanged"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="749*"/>
+            <ColumnDefinition Width="443*"/>
+        </Grid.ColumnDefinitions>
+        <Button Name="BtnAddSite" Content="+" Margin="409,131,298,587" />
+        <Button Name="BtnDelSite" Content="-" Margin="362,131,345,587" />
+        <Label Name="Sites" Content="SharePoint Sites" Margin="175,140,438,589" />
+        <Label Name="Props" Content="SharePoint Site Properties" Margin="215,62,39,662" Grid.Column="1" />
+        <Label Name="Lists" Content="SharePoint Site Lists" Margin="10,211,262,516" Grid.Column="1" />
+        <TextBox Name="TBOut" Margin="159,101,16,557" Grid.Column="1" IsEnabled="False" />
+        <ListBox Name="LBSites" HorizontalAlignment="Left" Height="572" Margin="41,181,0,0" VerticalAlignment="Top" Width="410" SelectionChanged="LBSitesChanged"/>
+        <ListBox Name="LBLists" HorizontalAlignment="Left" Height="506" Margin="495,247,0,0" VerticalAlignment="Top" Width="681" Grid.ColumnSpan="2" />
     </Grid>
 </Window>

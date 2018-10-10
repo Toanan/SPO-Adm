@@ -10,7 +10,6 @@ namespace SPOtLight
         public MainWindow()
         {
             InitializeComponent();
-            
         }
 
         private void StorePW(object sender, RoutedEventArgs e)

@@ -9,7 +9,7 @@
 
     <Grid>
         <Label Name="Intro" Background="DarkCyan" Content="            You can set your credentials here. &#x0a;Leave User name empty for managed credentials." Margin="0,0,0.4,258.2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"  Width="662" VerticalAlignment="Center" Height="45"/>
-        <Label Name="LAdminSite" Content="AdminSite" Margin="27,101,564.4,164.2" />
+        <Label Name="LAdminSite" Content="AdminSite" Margin="27,101,548,164" />
         <TextBox Name="TBAdminSite" Margin="126,101,27.4,174.2" />
         <Label Name="LUser" Content="User name" Margin="14,175,548.4,89.2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <Label Name="LPassword" Content="Password" Margin="17,216,553.4,46.2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.5,0.5"/>
