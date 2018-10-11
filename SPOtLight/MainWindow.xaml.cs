@@ -7,11 +7,13 @@ namespace SPOtLight
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Constructor
         public MainWindow()
         {
             InitializeComponent();
-        }
+        }// End Constructor
 
+        // Method - Store Credentials
         private void StorePW(object sender, RoutedEventArgs e)
         {
             var repo = new PasswordRepository();
@@ -29,5 +31,5 @@ namespace SPOtLight
                 new Sitesmanagement(TBAdminSite.Text).Show();
             }
         }
-    }
+    }// End Method
 }

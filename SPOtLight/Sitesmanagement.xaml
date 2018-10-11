@@ -6,19 +6,28 @@
         xmlns:local="clr-namespace:SPOtLight"
         mc:Ignorable="d"
         Title="SPOtLight &gt; SitesManagement" Height="800" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,0,-0.4,6">
-        <TextBox Name="TBSiteName" Text="" Margin="495,125,522,605.4" />
-        <ComboBox Name="CBSiteTemplate" Margin="681,125,377,605.4">
+
+
+    <Grid Margin="5">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"    />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="Refreshsites" Grid.Column="0" Content="Refresh" Margin="287,92,10,576" Click="RefreshSites" FontFamily="Stencil" FontSize="14"/>
+        <ListBox x:Name="LBSites" Grid.Column="0" HorizontalAlignment="Left" Height="519" Margin="10,215,0,0" VerticalAlignment="Top" Width="375" SelectionChanged="LBSitesChanged" BorderBrush="#FF4B4F59" FontFamily="Myriad Pro" />
+        <Label Name="Sites" Grid.Column="0" Content="SharePoint Sites" Margin="287,16,254,674" FontFamily="Stencil" FontSize="20" Grid.ColumnSpan="2" />
+        <TextBox Name="TBSiteName" Text="" Margin="10,92,128,632" />
+        <ComboBox Name="CBSiteTemplate" Grid.Column="0" Margin="10,148,241,576">
             <ComboBoxItem>Team</ComboBoxItem>
             <ComboBoxItem>Communication</ComboBoxItem>
         </ComboBox>
-        <Button Name="BtnAddSite" Content="+" Margin="829,125,329,605.4" Click="AddSite_onClick"/>
-        <Label Name="Sites" Content="SharePoint Sites" Margin="175,140,834,588.4" />
-        <Button Name="Refreshsites" Content="Refresh" Margin="41,134,1076,592.4" Click="RefreshSites"/>
-        <Label Name="Props" Content="SharePoint Site Properties" Margin="967,55,45,668.4" />
-        <Label Name="Lists" Content="SharePoint Site Lists" Margin="629,209,397,517.4" />
-        <TextBox Name="TBOut" Margin="877,101,16,556.4" IsEnabled="False" />
-        <ListBox Name="LBSites" HorizontalAlignment="Left" Height="572" Margin="41,181,0,0" VerticalAlignment="Top" Width="410" SelectionChanged="LBSitesChanged" />
-        <ListBox Name="LBLists" HorizontalAlignment="Left" Height="506" Margin="495,247,0,0" VerticalAlignment="Top" Width="681" Grid.ColumnSpan="2" />
+        <Button Name="BtnAddSite" Grid.Column="0" VerticalContentAlignment="Center" Content="Create Site" Margin="175,148,128,576" Click="AddSite_onClick" FontFamily="Stencil"/>
+        <Label Name="TBOut" BorderThickness="1" Grid.Column="1"  Margin="10,92,10,543" BorderBrush="#FF42444B" FontFamily="Myriad Pro" />
+
+        <ListBox Name="LBLists" Grid.Column="1" HorizontalAlignment="Left" Height="415" Margin="10,319,0,0" VerticalAlignment="Top" Width="374" BorderBrush="#FF232730" FontFamily="Myriad Pro" />
+        <Label Name="Lists" Grid.Column="1" Content="SharePoint Site Lists" Margin="80,257,10,451" FontFamily="Stencil" FontSize="20" />
     </Grid>
 </Window>
