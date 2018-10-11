@@ -11,16 +11,20 @@ namespace SPOtLight
     /// </summary>
     public partial class SPOtLightMenu : Window
     {
-        public SPOtLightMenu()
+        public SPOtLightMenu(string Url)
         {
             InitializeComponent();
+            this.CredManager = Url;
+
         }
+
+        public string CredManager { get; set; }
 
         // Method - Btn.Click - Connect to SPO Site and retrive Basics Information
         private void ConnectSPO(object sender, RoutedEventArgs e)
         {
             //Using ClientContext - Retrive Basic Informaiton
-            var spoL = new SPOLogic();
+            var spoL = new SPOLogic(CredManager);
             using (ClientContext ctx = spoL.GetSiteContext(TBSite.Text))
             {
                 // Calling to Web.Title, Lists and Admins
@@ -55,7 +59,7 @@ namespace SPOtLight
         private void CreateList(object sender, RoutedEventArgs e)
         {
             //Using ClientContext - Retrive Basic Informaiton
-            var spoL = new SPOLogic();
+            var spoL = new SPOLogic(CredManager);
             using (ClientContext ctx = spoL.GetSiteContext(TBSite.Text))
             {
                 try

@@ -7,17 +7,18 @@
         mc:Ignorable="d"
         Title="SPOtLight &gt; SitesManagement" Height="800" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,-0.4,6">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="749*"/>
-            <ColumnDefinition Width="443*"/>
-        </Grid.ColumnDefinitions>
-        <Button Name="BtnAddSite" Content="+" Margin="409,131,298,587" />
-        <Button Name="BtnDelSite" Content="-" Margin="362,131,345,587" />
-        <Label Name="Sites" Content="SharePoint Sites" Margin="175,140,438,589" />
-        <Label Name="Props" Content="SharePoint Site Properties" Margin="215,62,39,662" Grid.Column="1" />
-        <Label Name="Lists" Content="SharePoint Site Lists" Margin="10,211,262,516" Grid.Column="1" />
-        <TextBox Name="TBOut" Margin="159,101,16,557" Grid.Column="1" IsEnabled="False" />
-        <ListBox Name="LBSites" HorizontalAlignment="Left" Height="572" Margin="41,181,0,0" VerticalAlignment="Top" Width="410" SelectionChanged="LBSitesChanged"/>
+        <TextBox Name="TBSiteName" Text="" Margin="495,125,522,605.4" />
+        <ComboBox Name="CBSiteTemplate" Margin="681,125,377,605.4">
+            <ComboBoxItem>Team</ComboBoxItem>
+            <ComboBoxItem>Communication</ComboBoxItem>
+        </ComboBox>
+        <Button Name="BtnAddSite" Content="+" Margin="829,125,329,605.4" Click="AddSite_onClick"/>
+        <Label Name="Sites" Content="SharePoint Sites" Margin="175,140,834,588.4" />
+        <Button Name="Refreshsites" Content="Refresh" Margin="41,134,1076,592.4" Click="RefreshSites"/>
+        <Label Name="Props" Content="SharePoint Site Properties" Margin="967,55,45,668.4" />
+        <Label Name="Lists" Content="SharePoint Site Lists" Margin="629,209,397,517.4" />
+        <TextBox Name="TBOut" Margin="877,101,16,556.4" IsEnabled="False" />
+        <ListBox Name="LBSites" HorizontalAlignment="Left" Height="572" Margin="41,181,0,0" VerticalAlignment="Top" Width="410" SelectionChanged="LBSitesChanged" />
         <ListBox Name="LBLists" HorizontalAlignment="Left" Height="506" Margin="495,247,0,0" VerticalAlignment="Top" Width="681" Grid.ColumnSpan="2" />
     </Grid>
 </Window>

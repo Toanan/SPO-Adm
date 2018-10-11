@@ -15,7 +15,6 @@ namespace SPOtLight
         private void StorePW(object sender, RoutedEventArgs e)
         {
             var repo = new PasswordRepository();
-            var tryConnect = new SPOtLightMenu();
 
             if (!string.IsNullOrEmpty(TBUN.Text))
             {  
