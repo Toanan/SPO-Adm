@@ -107,7 +107,7 @@ namespace SPOtLight
         // Method LBSites.OnChange() ==> Call for Site props (getSiteProps())
         private void LBSitesChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(!string.IsNullOrEmpty(LBSites.SelectedItem.ToString()))
+            if(LBSites.SelectedValue != null)
             {
                 //Reloading UI and [TODO] canceling pending operation to prevent spam
                 getSiteProps(LBSites.SelectedValue.ToString());
@@ -222,6 +222,8 @@ namespace SPOtLight
         {
             getSiteProp(CredManager);
             ConnectSPOAdm(CredManager);
+            TBOut.Clear();
+            LBLists.Items.Clear();
         }
     }
 }
