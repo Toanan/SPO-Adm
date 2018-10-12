@@ -161,7 +161,7 @@ namespace SPOtLight
         {
             if (string.IsNullOrEmpty(TBSiteName.Text))
             {
-                MessageBox.Show("Please give a site name");
+                MessageBox.Show("Please give a site name", "My app" ,MessageBoxButton.OK ,MessageBoxImage.Warning);
                 return;
             }
             

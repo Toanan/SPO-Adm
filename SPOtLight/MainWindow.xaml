@@ -5,16 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPOtLight"
         mc:Ignorable="d"
-        Title="SPOtLight &gt; AdmLogin" Height="333.079" Width="669.095" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="img/Icon.png">
+        Title="SPOtLight &gt; AdmLogin" Height="278.011" Width="713.089" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="img/Icon.png">
 
     <Grid>
-        <Label Name="Intro" Background="DarkCyan" Content="            You can set your credentials here. &#x0a;Leave User name empty for managed credentials." Margin="0,0,0.4,258.2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"  Width="662" VerticalAlignment="Center" Height="45"/>
-        <Label Name="LAdminSite" Content="AdminSite" Margin="27,101,548,164" />
-        <TextBox Name="TBAdminSite" Margin="126,101,27.4,174.2" />
-        <Label Name="LUser" Content="User name" Margin="14,175,548.4,89.2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Name="LPassword" Content="Password" Margin="17,216,553.4,46.2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.5,0.5"/>
-        <TextBox Name="TBUN" HorizontalAlignment="Left" Height="23" Margin="126,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324"/>
-        <PasswordBox Name="PBPW" HorizontalAlignment="Left" Margin="126,224,0,0" VerticalAlignment="Top" Width="324" Height="23"/>
-        <Button Name="BTNCRED" Content="Connect"  HorizontalAlignment="Left" Margin="504,196,0,0" VerticalAlignment="Top" Width="88" Click="StorePW" Height="35" Background="#FFEDE5E5"/>
+        <Image Name="SPLogo" Source="Img/Sharepoint-logo.png" Margin="104,-20,277,154" />
+
+        <Label Name="Register" Background="#FF0072C6" Content="   Never Been there? &#x0a; Register your Tenant..." Margin="23,81,382,123" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"  Width="302" VerticalAlignment="Center" Height="45" Foreground="White" FontFamily="Segoe UI Black"/>
+        <Label Name="Login" Background="#FF0072C6" Content="Login" Margin="345,80,10,124" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"  Width="352" VerticalAlignment="Center" Height="45" Foreground="White" FontFamily="Segoe UI Black"/>
+        <Label Name="LAdminSite" Content="Tenant" Margin="345,169,299,46" FontFamily="Segoe UI Black" Foreground="#FF0072C6" />
+        <TextBox Name="Tenant" Margin="400,169,164,45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="#FF0078D7" Foreground="#FF0078D7" FontFamily="Segoe UI Black"/>
+        <Label Name="SPAdmUrl" Content="-admin.sharepoint.com" Margin="530,167,10,48" FontFamily="Segoe UI Black" Foreground="#FF0072C6"/>
+        <Label Name="LUser" Content="User name" Margin="0,146,616,69" FontFamily="Segoe UI Black" Foreground="#FF0072C6"/>
+        <Label Name="LPassword" Content="Password" Margin="0,198,622,17" RenderTransformOrigin="0.5,0.5" Foreground="#FF0072C6" FontFamily="Segoe UI Black"/>
+        <TextBox Name="TBUN" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" Margin="81,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" BorderBrush="#FF0072C6" FontFamily="Segoe UI Black" Foreground="#FF0078D7" TextChanged="TBUN_TextChanged"/>
+        <PasswordBox Name="PBPW" HorizontalAlignment="Left" Margin="81,201,0,0" VerticalAlignment="Top" Width="214" Height="24" BorderBrush="#FF0072C6" FontFamily="Segoe UI Black" Foreground="#FF0078D7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Button Name="BTNCRED" Content="Connect"  HorizontalAlignment="Left" Margin="554,22,0,0" VerticalAlignment="Top" Width="120" Click="StorePW" Height="37" Background="#FFEDE5E5" Foreground="#FF0072C6" FontFamily="Segoe UI Black" FontSize="14" BorderBrush="#FF0072C6"/>
     </Grid>
 </Window>

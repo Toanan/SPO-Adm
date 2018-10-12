@@ -23,10 +23,6 @@ namespace SPOtLight
         {
             var cred = new CredentialManagement.Credential();
             cred.Target = AdmUrl;
-            if (!cred.Exists())
-            {
-                MessageBox.Show(string.Format("Unable to find credential : {0}, please set up credentials", AdmUrl));
-            }
             cred.Load();
             return cred;
 
