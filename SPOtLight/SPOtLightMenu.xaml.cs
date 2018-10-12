@@ -73,6 +73,6 @@ namespace SPOtLight
                     MessageBox.Show(string.Format("Unable to create list : {0}" + Environment.NewLine + "{1}",TBList.Text, ex.Message));
                 }
             }
-        }// End Method
+        }// End Methodok
     }
 }
