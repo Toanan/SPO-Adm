@@ -67,9 +67,5 @@ namespace SPOtLight
                
         }// End Method
 
-        private void TBUN_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
-        }
     }
 }

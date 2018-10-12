@@ -23,6 +23,8 @@ namespace SPOtLight
     /// </summary>
     public partial class Sitesmanagement : Window
     {
+
+        
         #region Init
         //Constructor
         public Sitesmanagement(string Url)
@@ -39,11 +41,17 @@ namespace SPOtLight
         {
             SPOLogic sp = new SPOLogic(CredManager);
             // Task - SetTenantProps
-            Task.Factory.StartNew(() =>
+
+            this.TenantProp = sp.getTenantProp(CredManager);
+            if (this.TenantProp == null)
             {
-                this.TenantProp = sp.getTenantProp(CredManager);
+                new MainWindow().Show();
+                this.Hide();
+            }
+            else
+            {
                 ShowSites();
-            });
+            }
         }// End Method
         #endregion
 
@@ -225,6 +233,12 @@ namespace SPOtLight
             if (string.IsNullOrEmpty(path))
                 return null;
             return path;
+        }
+
+        private void LoginPage_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            this.Hide();
         }
     }
 }

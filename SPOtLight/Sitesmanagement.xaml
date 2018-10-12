@@ -18,7 +18,16 @@
         </Grid.ColumnDefinitions>
 
         <Button x:Name="Refreshsites" Grid.Column="1" Content="Refresh" Margin="0,148,222,562" Click="RefreshSites" FontFamily="Segoe UI Black" FontSize="20" BorderBrush="#FF0072C6" HorizontalAlignment="Right" Width="98" Foreground="#FF0072C6"/>
-        <Image Name="SPLogo" Source="Img/Sharepoint-logo.png" Margin="0,0,42,686" />
+        <Image Name="SPLogo" Source="Img/Icon.png" Margin="160,16,276,635" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="360.179"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
         <TextBox Name="TBSiteName" Text="" Margin="10,148,128,562" BorderBrush="#FF0072C6" FontFamily="Segoe UI Black" FontSize="20" Foreground="#FF0072C6" />
         <ComboBox Name="CBSiteTemplate" Grid.Column="0" Margin="10,75,128,635" BorderBrush="#FF0072C6" FontSize="20" FontFamily="Segoe UI Black" Foreground="#FF0072C6">
             <ComboBox.Background>
@@ -32,7 +41,7 @@
         </ComboBox>
         <Button Name="BtnAddSite" Grid.Column="0" VerticalContentAlignment="Center" Content="Create Site" Margin="298,148,341,562" Click="AddSite_onClick" FontFamily="Segoe UI Black" FontSize="20" Grid.ColumnSpan="2" BorderBrush="#FF0072C6" Foreground="#FF0072C6" />
         <Label Name="TBOut" BorderThickness="1" Grid.Column="1"  Margin="10,0,10,635" BorderBrush="#FF0072C6" FontFamily="Myriad Pro" />
-
+        <Button Grid.Column="2" Name="LoginPage" Margin="264,0,0,701" Background="#FFDDDDDD" Content="Disconnect" Click="LoginPage_Click" BorderBrush="#FF0072C6" Foreground="#FF0072C6" FontFamily="Segoe UI Black" FontSize="20"/>
         <TreeView Grid.Column="0" x:Name="SiteView" Margin="10.4,215,221.74,26.4" BorderBrush="#FF0072C6" Background="White" Grid.ColumnSpan="2" FontFamily="Segoe UI Black" Foreground="#FF0072C6">
             <TreeView.Resources>
                 <Style TargetType="{x:Type TreeViewItem}">

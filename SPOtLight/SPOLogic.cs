@@ -4,6 +4,7 @@ using Microsoft.SharePoint.Client;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.Online.SharePoint.TenantAdministration;
+using System.Windows;
 
 namespace SPOtLight
 {
@@ -22,12 +23,24 @@ namespace SPOtLight
         // Method - Returns tenantSiteProps
         public SPOSitePropertiesEnumerable getTenantProp(string Url)
         {
-            ClientContext ctx = GetSiteContext(Url);
-            Tenant tenant = new Tenant(ctx);
-            SPOSitePropertiesEnumerable prop = tenant.GetSitePropertiesFromSharePoint("0", true);
-            ctx.Load(prop);
-            ctx.ExecuteQuery();
-            return prop;
+            try
+            {
+                ClientContext ctx = GetSiteContext(Url);
+                Tenant tenant = new Tenant(ctx);
+                SPOSitePropertiesEnumerable prop = tenant.GetSitePropertiesFromSharePoint("0", true);
+                ctx.Load(prop);
+                ctx.ExecuteQuery();
+                return prop;
+            }
+            catch (IdcrlException)
+            {
+                MessageBox.Show("Wrong UserName and Password combination");
+
+            }catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return null;
         }
 
         // Method - Returns authenticated context

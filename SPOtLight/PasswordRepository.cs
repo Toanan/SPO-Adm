@@ -25,8 +25,6 @@ namespace SPOtLight
             cred.Target = AdmUrl;
             cred.Load();
             return cred;
-
-
         }// End Method
     }
 }
