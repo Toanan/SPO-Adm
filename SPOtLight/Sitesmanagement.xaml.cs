@@ -31,13 +31,7 @@ namespace SPOtLight
             CBSiteTemplate.SelectedIndex = 0;
             // Set UrlProps
             this.CredManager = Url;
-            SPOLogic sp = new SPOLogic(Url);
-            // Task - SetTenantProps
-            Task.Factory.StartNew(() =>
-            {
-                this.TenantProp = sp.getTenantProp(Url);
-                showSites(Url);
-            });
+            
         }// End Constructor
 
         // Props - UrlProps
@@ -46,20 +40,76 @@ namespace SPOtLight
         // Props - TenantProps
         public SPOSitePropertiesEnumerable TenantProp { get; set; }
 
-        // Method - OnWindowInitialise() - Connect to SPO Site and retrive Basics Information // oninit()
-        private void showSites(string Url)
+        // Method - OnLoad() - Add Sites to TreeView - Launch as a Task
+        private void ShowSites()
         {
-            LBSites.Dispatcher.Invoke(() =>
+            // Start Dispatcher
+            SiteView.Dispatcher.Invoke(() =>
             {
-                LBSites.Items.Clear();
+                // Clear TreeViewItems
+                SiteView.Items.Clear();
+                // Get All sites in TenantProp
                 foreach (var subweb in TenantProp)
-                {                  
-                        LBSites.Items.Add(subweb.Url);                   
+                {
+                    // Creating the TreeViewItem + props
+                    var item = new TreeViewItem
+                    {
+                        // Set the header
+                        Header = subweb.Url,
+                        // Set the full path
+                        Tag = subweb.Url,
+                    };
+                    // Adding dumy item.items
+                    item.Items.Add(null);
+
+                    // Listen out for item being expanded
+                    item.Expanded += Folder_Expanded;
+
+                    // Add it to the TreeView
+                    SiteView.Items.Add(item);                   
                 }
             });
         }// End Method
 
-        // Method LBSites.OnChange() ==> Call for Site props and Lists props (getSiteProps() + getSiteLists())
+        // Method - TreeViewItem.Expand Listener - Call for Site Lists
+        private void Folder_Expanded(object sender, RoutedEventArgs e)
+        {
+            var item = (TreeViewItem)sender;
+
+            // If the item only contains the dumy data
+            if (item.Items.Count != 1 || item.Items == null)
+                return;
+            //Clear dummy item
+            item.Items.Clear();
+
+            // Get Site library
+            var SitePath = (string)item.Tag;
+
+            Task.Factory.StartNew(() =>
+            {
+                // Call for the expended site Web
+                var spoL = new SPOLogic(CredManager);
+                // Filter on not hidden file
+                IEnumerable<Microsoft.SharePoint.Client.List> lists = spoL.getWebLists(SitePath, CredManager).Where(l => !l.Hidden);
+
+                item.Dispatcher.Invoke(() =>
+                {
+                    // Creating TreeeViewIems from lists
+                    foreach (var list in lists)
+                    {
+                        var subitem = new TreeViewItem
+                        {
+                            Header = list.Title,
+                            Tag = list.BaseTemplate,
+                        };
+
+                        item.Items.Add(subitem.Header);
+                    }
+                });// End Dispatch
+            });// End Task        
+        }// End Method
+
+        // Method LBSites.OnChange() ==> Call for Site props and Lists props (GetSiteProps() + GetSiteLists())
         private void LBSitesChanged(object sender, SelectionChangedEventArgs e)
         {
             if(LBSites.SelectedValue != null)
@@ -68,9 +118,9 @@ namespace SPOtLight
                 Task.Factory.StartNew(() =>
                 {
                     // Dispatch to TBOut control
-                    TBOut.Dispatcher.Invoke(() =>
+                    SiteView.Dispatcher.Invoke(() =>
                     {
-                        getSiteProps(LBSites.SelectedValue.ToString());
+                        GetSiteProps(SiteView.SelectedItem.ToString());
                     });// End Dispatch
                 });// End Task
                 Task.Factory.StartNew(() =>
@@ -78,15 +128,15 @@ namespace SPOtLight
                     // Dispatch to TBOut control
                     LBLists.Dispatcher.Invoke(() =>
                     {
-                        getSiteLists(LBSites.SelectedValue.ToString());
+                        GetSiteLists(LBSites.SelectedValue.ToString());
                     });// End Dispatch
                 });// End Task
-                //getSiteLists(LBSites.SelectedValue.ToString());
+                //GetSiteLists(LBSites.SelectedValue.ToString());
             }
         }// End Method
 
         // Method to Call for SharePoint Site Props (Title and SiteUsers) - Task()
-        private void getSiteProps(string Url)
+        private void GetSiteProps(string Url)
         {  
                     var spoL = new SPOLogic(Url);
                     Web web = spoL.getWebProps(Url, CredManager);
@@ -104,7 +154,7 @@ namespace SPOtLight
         }// End Method
 
         // Method to Call for SharePoint Site Lists - onInitialise Window
-        private void getSiteLists(string Url)
+        private void GetSiteLists(string Url)
         {
             var spoL = new SPOLogic(Url);
             IEnumerable<Microsoft.SharePoint.Client.List> lists = spoL.getWebLists(Url ,CredManager).Where(l => !l.Hidden);
@@ -162,12 +212,24 @@ namespace SPOtLight
             Task.Factory.StartNew(() =>
             {
                 this.TenantProp = sp.getTenantProp(CredManager);
-                showSites(CredManager); 
+                ShowSites(); 
             });
 
             //Clear Ui
             TBOut.Content = "";
-            LBLists.Items.Clear();
+            SiteView.Items.Clear();
+        }// End Method
+
+        // Method - Window.Loaded() - Set TenantProps & Show Sites to Treeview
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            SPOLogic sp = new SPOLogic(CredManager);
+            // Task - SetTenantProps
+            Task.Factory.StartNew(() =>
+            {
+                this.TenantProp = sp.getTenantProp(CredManager);
+                ShowSites();
+            });
         }// End Method
     }
 }
