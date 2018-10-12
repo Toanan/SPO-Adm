@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPOtLight"
         mc:Ignorable="d"
-        Title="SPOtLight &gt; AdmLogin" Height="333.079" Width="669.095" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="SPOtLight &gt; AdmLogin" Height="333.079" Width="669.095" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="img/Icon.png">
 
     <Grid>
         <Label Name="Intro" Background="DarkCyan" Content="            You can set your credentials here. &#x0a;Leave User name empty for managed credentials." Margin="0,0,0.4,258.2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"  Width="662" VerticalAlignment="Center" Height="45"/>

@@ -23,7 +23,7 @@ namespace SPOtLight
     /// </summary>
     public partial class Sitesmanagement : Window
     {
-
+        #region Init
         //Constructor
         public Sitesmanagement(string Url)
         {
@@ -34,11 +34,40 @@ namespace SPOtLight
             
         }// End Constructor
 
+        // Method - Window.Loaded() - Set TenantProps & Show Sites to Treeview
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            SPOLogic sp = new SPOLogic(CredManager);
+            // Task - SetTenantProps
+            Task.Factory.StartNew(() =>
+            {
+                this.TenantProp = sp.getTenantProp(CredManager);
+                ShowSites();
+            });
+        }// End Method
+        #endregion
+
+        #region Props
         // Props - UrlProps
         public string CredManager { get; set; }
 
         // Props - TenantProps
         public SPOSitePropertiesEnumerable TenantProp { get; set; }
+        #endregion
+
+        #region TreeView Sites and Lists
+        // Method to Call for SharePoint Site Lists - onInitialise Window
+        public void GetSiteLists(string Url)
+        {
+            var spoL = new SPOLogic(Url);
+            IEnumerable<Microsoft.SharePoint.Client.List> lists = spoL.getWebLists(Url, CredManager).Where(l => !l.Hidden);
+
+            //LBLists.Items.Clear();
+            foreach (Microsoft.SharePoint.Client.List lst in lists)
+            {
+                //LBLists.Items.Add(lst.Title + " - (" + lst.ItemCount + ")");
+            }
+        }// End Method
 
         // Method - OnLoad() - Add Sites to TreeView - Launch as a Task
         private void ShowSites()
@@ -99,76 +128,43 @@ namespace SPOtLight
                     {
                         var subitem = new TreeViewItem
                         {
-                            Header = list.Title,
-                            Tag = list.BaseTemplate,
+                            Header = list.Title + " (" + list.ItemCount + ") - " + list.BaseTemplate.ToString() ,
+                            Tag = list.BaseTemplate.ToString(),
                         };
 
-                        item.Items.Add(subitem.Header);
+                        item.Items.Add(subitem);
                     }
                 });// End Dispatch
             });// End Task        
         }// End Method
 
-        // Method LBSites.OnChange() ==> Call for Site props and Lists props (GetSiteProps() + GetSiteLists())
-        private void LBSitesChanged(object sender, SelectionChangedEventArgs e)
+        // Method - Refresh.onClick() - Call for showsite
+        private void RefreshSites(object sender, RoutedEventArgs e)
         {
-            if(LBSites.SelectedValue != null)
+            SPOLogic sp = new SPOLogic(CredManager);
+            // Task - SetTenantProps and show sites
+            Task.Factory.StartNew(() =>
             {
-                //Reloading UI and [TODO] canceling pending operation to prevent spam
-                Task.Factory.StartNew(() =>
-                {
-                    // Dispatch to TBOut control
-                    SiteView.Dispatcher.Invoke(() =>
-                    {
-                        GetSiteProps(SiteView.SelectedItem.ToString());
-                    });// End Dispatch
-                });// End Task
-                Task.Factory.StartNew(() =>
-                {
-                    // Dispatch to TBOut control
-                    LBLists.Dispatcher.Invoke(() =>
-                    {
-                        GetSiteLists(LBSites.SelectedValue.ToString());
-                    });// End Dispatch
-                });// End Task
-                //GetSiteLists(LBSites.SelectedValue.ToString());
-            }
+                this.TenantProp = sp.getTenantProp(CredManager);
+                ShowSites();
+            });
+
+            //Clear Ui
+            TBOut.Content = "";
+            SiteView.Items.Clear();
         }// End Method
+        #endregion
 
-        // Method to Call for SharePoint Site Props (Title and SiteUsers) - Task()
-        private void GetSiteProps(string Url)
-        {  
-                    var spoL = new SPOLogic(Url);
-                    Web web = spoL.getWebProps(Url, CredManager);
-
-                    // Pushing SiteName, Admin count and Admin.Title to TBOut
-                    TBOut.Content = "SiteName : " + web.Title + Environment.NewLine;
-                    TBOut.Content += "BaseTemplate : " + web.WebTemplate + "#" + web.Configuration.ToString() + Environment.NewLine;
-                    TBOut.Content += "Admin count : "+ web.SiteUsers.Where(u => u.IsSiteAdmin).Count() + Environment.NewLine;
-
-                    var admins = web.SiteUsers.Where(u => u.IsSiteAdmin);
-                    foreach (var admin in admins)
-                    {
-                        TBOut.Content += admin.Title + Environment.NewLine;
-                    }
-        }// End Method
-
-        // Method to Call for SharePoint Site Lists - onInitialise Window
-        private void GetSiteLists(string Url)
-        {
-            var spoL = new SPOLogic(Url);
-            IEnumerable<Microsoft.SharePoint.Client.List> lists = spoL.getWebLists(Url ,CredManager).Where(l => !l.Hidden);
-
-            LBLists.Items.Clear();
-            foreach (Microsoft.SharePoint.Client.List lst in lists)
-            {
-                LBLists.Items.Add(lst.Title + " - (" + lst.ItemCount + ")");
-            }
-        }// End Method
-
+        #region Site Creation
         //Method to create a Modern Project / Communication Site
-        private async void createSite (string SiteTemplate)
+        private async void createSite(string SiteTemplate)
         {
+            if (string.IsNullOrEmpty(TBSiteName.Text))
+            {
+                MessageBox.Show("Please give a site name");
+                return;
+            }
+            
             var spoL = new SPOLogic(CredManager);
             ClientContext ctx = spoL.GetSiteContext(CredManager);
             if (SiteTemplate == "Team")
@@ -203,33 +199,32 @@ namespace SPOtLight
         {
             createSite(CBSiteTemplate.SelectedValue.ToString());
         }// End Method
+        #endregion
 
-        // Method - Refresh.onClick() - Call for showsite
-        private void RefreshSites(object sender, RoutedEventArgs e)
-        {
-            SPOLogic sp = new SPOLogic(CredManager);
-            // Task - SetTenantProps and show sites
-            Task.Factory.StartNew(() =>
-            {
-                this.TenantProp = sp.getTenantProp(CredManager);
-                ShowSites(); 
-            });
 
-            //Clear Ui
-            TBOut.Content = "";
-            SiteView.Items.Clear();
+        // Method to Call for SharePoint Site Props (Title and SiteUsers) - Task()
+        private void GetSiteProps(string Url)
+        {  
+                    var spoL = new SPOLogic(Url);
+                    Web web = spoL.getWebProps(Url, CredManager);
+
+                    // Pushing SiteName, Admin count and Admin.Title to TBOut
+                    TBOut.Content = "SiteName : " + web.Title + Environment.NewLine;
+                    TBOut.Content += "BaseTemplate : " + web.WebTemplate + "#" + web.Configuration.ToString() + Environment.NewLine;
+                    TBOut.Content += "Admin count : "+ web.SiteUsers.Where(u => u.IsSiteAdmin).Count() + Environment.NewLine;
+
+                    var admins = web.SiteUsers.Where(u => u.IsSiteAdmin);
+                    foreach (var admin in admins)
+                    {
+                        TBOut.Content += admin.Title + Environment.NewLine;
+                    }
         }// End Method
 
-        // Method - Window.Loaded() - Set TenantProps & Show Sites to Treeview
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        public static string GetTag(string path)
         {
-            SPOLogic sp = new SPOLogic(CredManager);
-            // Task - SetTenantProps
-            Task.Factory.StartNew(() =>
-            {
-                this.TenantProp = sp.getTenantProp(CredManager);
-                ShowSites();
-            });
-        }// End Method
+            if (string.IsNullOrEmpty(path))
+                return null;
+            return path;
+        }
     }
 }

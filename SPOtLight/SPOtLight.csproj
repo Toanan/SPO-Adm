@@ -191,6 +191,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HeaderToImageConverter.cs" />
     <Compile Include="PasswordRepository.cs" />
     <Compile Include="Sitesmanagement.xaml.cs">
       <DependentUpon>Sitesmanagement.xaml</DependentUpon>
@@ -249,6 +250,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Img\SPSite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Lib.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\List.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Sharepoint-logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

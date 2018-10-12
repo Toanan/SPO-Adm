@@ -6,40 +6,42 @@
         xmlns:local="clr-namespace:SPOtLight"
         Loaded="Window_Loaded"
         mc:Ignorable="d"
-        Title="SPOtLight &gt; SitesManagement" Height="800" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="SPOtLight &gt; SitesManagement" Height="800" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="img/Icon.png" >
 
 
     <Grid Margin="5">
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"    />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="Refreshsites" Grid.Column="0" Content="Refresh" Margin="287,92,10,576" Click="RefreshSites" FontFamily="Stencil" FontSize="14"/>
-        <ListBox x:Name="LBSites" Grid.Column="0" HorizontalAlignment="Left" Height="519" Margin="10,215,0,0" VerticalAlignment="Top" Width="375" SelectionChanged="LBSitesChanged" BorderBrush="#FF4B4F59" FontFamily="Myriad Pro" />
-        <Label Name="Sites" Grid.Column="0" Content="SharePoint Sites" Margin="287,16,254,674" FontFamily="Stencil" FontSize="20" Grid.ColumnSpan="2" />
-        <TextBox Name="TBSiteName" Text="" Margin="10,92,128,632" />
-        <ComboBox Name="CBSiteTemplate" Grid.Column="0" Margin="10,148,241,576">
+        <Button x:Name="Refreshsites" Grid.Column="1" Content="Refresh" Margin="0,148,222,562" Click="RefreshSites" FontFamily="Segoe UI Black" FontSize="20" BorderBrush="#FF0072C6" HorizontalAlignment="Right" Width="98" Foreground="#FF0072C6"/>
+        <Image Name="SPLogo" Source="Img/Sharepoint-logo.png" Margin="0,0,42,686" />
+        <TextBox Name="TBSiteName" Text="" Margin="10,148,128,562" BorderBrush="#FF0072C6" FontFamily="Segoe UI Black" FontSize="20" Foreground="#FF0072C6" />
+        <ComboBox Name="CBSiteTemplate" Grid.Column="0" Margin="10,75,128,635" BorderBrush="#FF0072C6" FontSize="20" FontFamily="Segoe UI Black" Foreground="#FF0072C6">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
             <ComboBoxItem>Team</ComboBoxItem>
             <ComboBoxItem>Communication</ComboBoxItem>
         </ComboBox>
-        <Button Name="BtnAddSite" Grid.Column="0" VerticalContentAlignment="Center" Content="Create Site" Margin="175,148,128,576" Click="AddSite_onClick" FontFamily="Stencil"/>
-        <Label Name="TBOut" BorderThickness="1" Grid.Column="1"  Margin="10,92,10,543" BorderBrush="#FF42444B" FontFamily="Myriad Pro" />
+        <Button Name="BtnAddSite" Grid.Column="0" VerticalContentAlignment="Center" Content="Create Site" Margin="298,148,341,562" Click="AddSite_onClick" FontFamily="Segoe UI Black" FontSize="20" Grid.ColumnSpan="2" BorderBrush="#FF0072C6" Foreground="#FF0072C6" />
+        <Label Name="TBOut" BorderThickness="1" Grid.Column="1"  Margin="10,0,10,635" BorderBrush="#FF0072C6" FontFamily="Myriad Pro" />
 
-        <ListBox Name="LBLists" Grid.Column="1" HorizontalAlignment="Left" Height="415" Margin="10,319,0,0" VerticalAlignment="Top" Width="374" BorderBrush="#FF232730" FontFamily="Myriad Pro" />
-        <Label Name="Lists" Grid.Column="1" Content="SharePoint Site Lists" Margin="80,257,10,451" FontFamily="Stencil" FontSize="20" />
-
-        <TreeView Grid.Column="2" x:Name="SiteView" Margin="10.4,215,10,26.4" BorderBrush="#FF333538">
+        <TreeView Grid.Column="0" x:Name="SiteView" Margin="10.4,215,221.74,26.4" BorderBrush="#FF0072C6" Background="White" Grid.ColumnSpan="2" FontFamily="Segoe UI Black" Foreground="#FF0072C6">
             <TreeView.Resources>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <Setter Property="HeaderTemplate">
                         <Setter.Value>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Width="20" Margin="0" Source="Img/SPSite.png" />
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding}"/>
+                                    <Image Width="22" Margin="3" Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}, Path=Tag, Converter={x:Static local:HeaderToImageConverter.Instance}}" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding}" FontFamily="Segoe UI Black" FontSize="16" />
                                 </StackPanel>
                             </DataTemplate>
                         </Setter.Value>
@@ -47,6 +49,6 @@
                 </Style>
             </TreeView.Resources>
         </TreeView>
-    
+
     </Grid>
 </Window>
