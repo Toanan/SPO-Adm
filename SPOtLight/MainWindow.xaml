@@ -16,6 +16,7 @@
         <Label Name="SPAdmUrl" Content="-admin.sharepoint.com" Margin="530,167,10,48" FontFamily="Segoe UI Black" Foreground="#FF0072C6"/>
         <Label Name="LUser" Content="User name" Margin="0,146,616,69" FontFamily="Segoe UI Black" Foreground="#FF0072C6"/>
         <Label Name="LPassword" Content="Password" Margin="0,198,622,17" RenderTransformOrigin="0.5,0.5" Foreground="#FF0072C6" FontFamily="Segoe UI Black"/>
+        <CheckBox Name="SaveCred" Margin="300,201,382,24" BorderBrush="#FF0072C6" Foreground="#FF0072C6" />
         <TextBox Name="TBUN" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" Margin="81,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" BorderBrush="#FF0072C6" FontFamily="Segoe UI Black" Foreground="#FF0078D7" />
         <PasswordBox Name="PBPW" HorizontalAlignment="Left" Margin="81,201,0,0" VerticalAlignment="Top" Width="214" Height="24" BorderBrush="#FF0072C6" FontFamily="Segoe UI Black" Foreground="#FF0078D7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <Button Name="BTNCRED" Content="Connect"  HorizontalAlignment="Left" Margin="554,22,0,0" VerticalAlignment="Top" Width="120" Click="StorePW" Height="37" Background="#FFEDE5E5" Foreground="#FF0072C6" FontFamily="Segoe UI Black" FontSize="14" BorderBrush="#FF0072C6"/>
