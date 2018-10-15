@@ -59,5 +59,9 @@
             </TreeView.Resources>
         </TreeView>
 
+
+        <Button x:Name="Migrate" Grid.Column="2" Content="Migrate" Margin="0,148,222,562" Click="Migrate_Click" FontFamily="Segoe UI Black" FontSize="20" BorderBrush="#FF0072C6" HorizontalAlignment="Right" Width="98" Foreground="#FF0072C6"/>
+        <Button x:Name="MigrateBig" Grid.Column="2" Content="MigrateBig" Margin="0,210,204,500.4" Click="MigrateBig_Click" FontFamily="Segoe UI Black" FontSize="20" BorderBrush="#FF0072C6" HorizontalAlignment="Right" Width="116" Foreground="#FF0072C6"/>
+
     </Grid>
 </Window>

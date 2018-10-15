@@ -15,6 +15,8 @@ using Microsoft.Online.SharePoint.TenantAdministration;
 using OfficeDevPnP.Core.Sites;
 using Microsoft.SharePoint.Client;
 using System.Threading;
+using List = Microsoft.SharePoint.Client.List;
+using OfficeDevPnP.Core.Utilities;
 
 namespace SPOtLight
 {
@@ -239,6 +241,45 @@ namespace SPOtLight
         {
             new MainWindow().Show();
             this.Hide();
+        }
+
+        // Method - Migrate <=2mb file - MigrateBtn.onClick()
+        private void Migrate_Click(object sender, RoutedEventArgs e)
+        {
+            string filePath = "c:/tmp/test.txt";
+            string libraryName = "test";
+            string siteUrl = "https://toanan.sharepoint.com/sites/Demo/";
+            string fileName = filePath.Substring(filePath.LastIndexOf("/") + 1);
+
+            using (ClientContext ctx = new ClientContext(siteUrl))
+            {
+                ctx.Credentials = CredentialManager.GetSharePointOnlineCredential(CredManager);
+                FileCreationInformation fileInfo = new FileCreationInformation();
+                fileInfo.Url = fileName;
+                fileInfo.Overwrite = true;
+                fileInfo.Content = System.IO.File.ReadAllBytes(filePath);
+
+                Web web = ctx.Web;
+                List lib = web.Lists.GetByTitle(libraryName);
+                File file = lib.RootFolder.Files.Add(fileInfo);
+                ctx.ExecuteQuery();
+
+                file.ListItemAllFields["Created"] = "2015-07-03";
+                //file.ListItemAllFields["Modified"] = "01/01/2018";
+                //file.ListItemAllFields["Author"] = "bob@toanan.onmicrosoft.com";
+                //file.ListItemAllFields["Editor"] = "bobo@toanan.onmicrosoft.com";
+                //file.ListItemAllFields.Update();
+                ctx.ExecuteQuery();
+
+
+            }
+        } // End Method
+
+        // Method - Migrate >2mb file - MigrateBtn.onClick()
+        private void MigrateBig_Click(object sender, RoutedEventArgs e) // End Method
+        {
+            //TODO
+
         }
     }
 }
