@@ -3,13 +3,7 @@ SharePoint Online admin tool
 
 # Solution to connect to a sharepoint Online tenant, show sites and library and create modern site based on default communication and teams templates.
 
-# To implement :
--Authentication options
--Sites information
--Site deletion
--Library and lists information and/or navigation
--File copy :)
-
+# Playground for future CSOM developpments
 
 Login screen to SharePoint tenant
 
