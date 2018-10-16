@@ -1,9 +1,11 @@
 # SPO-Adm
+# Playground for future CSOM developpments
+
 SharePoint Online admin tool
 
-# Solution to connect to a sharepoint Online tenant, show sites and library and create modern site based on default communication and teams templates.
+Solution to connect to a sharepoint Online tenant, show sites and library and create modern site based on default communication and teams templates.
 
-# Playground for future CSOM developpments
+
 
 Login screen to SharePoint tenant
 
